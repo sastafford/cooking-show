@@ -1,0 +1,23 @@
+buildscript {
+	repositories {
+		mavenLocal()
+		jcenter()
+	}
+	dependencies {
+		classpath "com.marklogic:ml-gradle:3.4.0"
+	}
+}
+
+plugins {
+	id "java"
+	id "idea"
+
+  id 'com.marklogic.ml-data-hub' version '2.0.3'
+}
+
+apply plugin: "com.marklogic.ml-gradle"
+
+repositories {
+	jcenter()
+	mavenLocal()
+}
