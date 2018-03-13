@@ -13,8 +13,8 @@
     
 # Create Harmonize Flows
 
-    gradle hubCreateHarmonizeFlow -PentityName=airport -PflowName=harmonizeNewMexicoAirport -PdataFormat=xml -PpluginFormat=xqy
-    gradle hubCreateHarmonizeFlow -PentityName=airpot -PflowName=harmonizeNorthDakotaAiport
+    gradle hubCreateHarmonizeFlow -PentityName=airport -PflowName=NewMexicoAirport -PdataFormat=xml -PpluginFormat=xqy
+    gradle hubCreateHarmonizeFlow -PentityName=airpot -PflowName=NorthDakotaAiport -PdataFormat=xml -PpluginFormat=xqy
 
 # Run Harmonize Flow
 
