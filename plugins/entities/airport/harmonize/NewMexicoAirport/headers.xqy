@@ -21,5 +21,12 @@ declare function plugin:create-headers(
   $content as item()?,
   $options as map:map) as node()*
 {
-  element point { $content//kml:Point/kml:coordinates/text() }
+  (
+  element point {
+    attribute classification { "UNCLASSIFIED" },
+    $content//kml:Point/kml:coordinates/text()
+  },
+  element elevation { $content//kml:SimpleData[@name = "ELEVATN"]/text() }
+  )
+
 };

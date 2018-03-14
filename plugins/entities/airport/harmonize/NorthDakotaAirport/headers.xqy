@@ -22,5 +22,12 @@ declare function plugin:create-headers(
   $content as item()?,
   $options as map:map) as node()*
 {
-  element point { $content//gml:Point/gml:pos//text() }
+  (
+  element point {
+    attribute classification { "UNCLASSIFIED" },
+    attribute compartmentation { "FOUO" },
+    $content//gml:Point/gml:pos//text()
+  },
+  element elevation { $content//fme:ELEV/text() }
+  )
 };
