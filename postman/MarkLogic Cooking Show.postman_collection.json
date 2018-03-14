@@ -62,6 +62,33 @@
 			"response": []
 		},
 		{
+			"name": "View Moriarty Muncipal Airport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "{{final-url}}/v1/documents?uri=/airports/new-mexico/5606827.xml",
+					"host": [
+						"{{final-url}}"
+					],
+					"path": [
+						"v1",
+						"documents"
+					],
+					"query": [
+						{
+							"key": "uri",
+							"value": "/airports/new-mexico/5606827.xml",
+							"equals": true
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
 			"name": "Ingest New Mexico Airports",
 			"request": {
 				"auth": {
@@ -117,26 +144,63 @@
 			"response": []
 		},
 		{
-			"name": "View Moriarty Muncipal Airport",
+			"name": "Airports within 100 miles of Las Cruces, NM with a Hangar",
 			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml"
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<search:search xmlns:search=\"http://marklogic.com/appservices/search\">\r\n  <cts:and-query xmlns:cts=\"http://marklogic.com/cts\">\r\n    <cts:element-geospatial-query>\r\n      <cts:element>point</cts:element>\r\n      <cts:region xsi:type=\"cts:circle\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">@100 32.314444,-106.77889</cts:region>\r\n      <cts:option>coordinate-system=wgs84</cts:option>\r\n      <cts:option>type=long-lat-point</cts:option>\r\n    </cts:element-geospatial-query>\r\n    <cts:element-word-query>\r\n      <cts:element xmlns:kml=\"http://earth.google.com/kml/2.2\">kml:SimpleData</cts:element>\r\n      <cts:text xml:lang=\"en\">Hgr</cts:text>\r\n    </cts:element-word-query>\r\n  </cts:and-query>\r\n  <search:options>\r\n    <search:transform-results apply=\"raw\" />\r\n    <search:constraint name=\"Collection\">\r\n      <search:collection/>\r\n    </search:constraint>\r\n    <search:search-option>filtered</search:search-option>\r\n  </search:options>\r\n</search:search>"
+				},
 				"url": {
-					"raw": "{{final-url}}/v1/documents?uri=/airports/new-mexico/5606827.xml",
+					"raw": "{{final-url}}/v1/search",
 					"host": [
 						"{{final-url}}"
 					],
 					"path": [
 						"v1",
-						"documents"
+						"search"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Airport elevations between 3000 ft and 4000 ft",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/xml"
+					},
+					{
+						"key": "Accept",
+						"value": "application/xml"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "<search:search xmlns:search=\"http://marklogic.com/appservices/search\">\r\n  <cts:and-query xmlns:cts=\"http://marklogic.com/cts\">\r\n    <cts:element-range-query operator=\"&gt;\">\r\n      <cts:element>elevation</cts:element>\r\n      <cts:value xsi:type=\"xs:float\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">3000</cts:value>\r\n    </cts:element-range-query>\r\n    <cts:element-range-query operator=\"&lt;\">\r\n      <cts:element>elevation</cts:element>\r\n      <cts:value xsi:type=\"xs:float\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">4000</cts:value>\r\n    </cts:element-range-query>\r\n  </cts:and-query>\r\n  <search:options>\r\n    <search:transform-results apply=\"raw\" />\r\n    <search:constraint name=\"Collection\">\r\n      <search:collection/>\r\n    </search:constraint>\r\n    <search:search-option>filtered</search:search-option>\r\n  </search:options>\r\n</search:search>"
+				},
+				"url": {
+					"raw": "{{final-url}}/v1/search",
+					"host": [
+						"{{final-url}}"
 					],
-					"query": [
-						{
-							"key": "uri",
-							"value": "/airports/new-mexico/5606827.xml",
-							"equals": true
-						}
+					"path": [
+						"v1",
+						"search"
 					]
 				},
 				"description": ""
@@ -159,39 +223,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "<search:search xmlns:search=\"http://marklogic.com/appservices/search\">\r\n  <cts:element-geospatial-query xmlns:cts=\"http://marklogic.com/cts\">\r\n    <cts:element>point</cts:element>\r\n    <cts:region xsi:type=\"cts:circle\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">@100 32.314444,-106.77889</cts:region>\r\n    <cts:option>coordinate-system=wgs84</cts:option>\r\n    <cts:option>type=long-lat-point</cts:option>\r\n  </cts:element-geospatial-query>\r\n  <search:options>\r\n    <search:transform-results apply=\"raw\" />\r\n    <search:constraint name=\"Collection\">\r\n      <search:collection/>\r\n    </search:constraint>\r\n    <search:search-option>filtered</search:search-option>\r\n  </search:options>\r\n</search:search>"
-				},
-				"url": {
-					"raw": "{{final-url}}/v1/search",
-					"host": [
-						"{{final-url}}"
-					],
-					"path": [
-						"v1",
-						"search"
-					]
-				},
-				"description": ""
-			},
-			"response": []
-		},
-		{
-			"name": "Airports in Bismark, ND",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/xml"
-					},
-					{
-						"key": "Accept",
-						"value": "application/xml"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "<search:search xmlns:search=\"http://marklogic.com/appservices/search\">\r\n  <cts:and-query xmlns:cts=\"http://marklogic.com/cts\">\r\n    <cts:directory-query>\r\n      <cts:uri>/airports/north-dakota/</cts:uri>\r\n    </cts:directory-query>\r\n    <cts:element-value-query>\r\n      <cts:element xmlns:fme=\"http://www.safe.com/gml/fme\">fme:CITY_NAME</cts:element>\r\n      <cts:text xml:lang=\"en\">BISMARK</cts:text>\r\n    </cts:element-value-query>\r\n  </cts:and-query>\r\n  <search:options>\r\n    <search:transform-results apply=\"raw\" />\r\n    <search:constraint name=\"Collection\">\r\n      <search:collection/>\r\n    </search:constraint>\r\n    <search:search-option>filtered</search:search-option>\r\n  </search:options>\r\n</search:search>"
+					"raw": "<search:search xmlns:search=\"http://marklogic.com/appservices/search\">\r\n  <cts:and-query xmlns:cts=\"http://marklogic.com/cts\">\r\n    <cts:element-geospatial-query>\r\n      <cts:element>point</cts:element>\r\n      <cts:region xsi:type=\"cts:circle\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">@100 32.314444,-106.77889</cts:region>\r\n      <cts:option>coordinate-system=wgs84</cts:option>\r\n      <cts:option>type=long-lat-point</cts:option>\r\n    </cts:element-geospatial-query>\r\n    <cts:element-word-query>\r\n      <cts:element xmlns:kml=\"http://earth.google.com/kml/2.2\">kml:SimpleData</cts:element>\r\n      <cts:text xml:lang=\"en\">Hgr</cts:text>\r\n    </cts:element-word-query>\r\n  </cts:and-query>\r\n  <search:options>\r\n    <search:transform-results apply=\"raw\" />\r\n    <search:constraint name=\"Collection\">\r\n      <search:collection/>\r\n    </search:constraint>\r\n    <search:search-option>filtered</search:search-option>\r\n  </search:options>\r\n</search:search>"
 				},
 				"url": {
 					"raw": "{{final-url}}/v1/search",

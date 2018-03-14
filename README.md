@@ -15,3 +15,5 @@
 
     gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=NewMexicoAirport
 
+    gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=NorthDakotaAirport
+
