@@ -3,6 +3,8 @@ xquery version "1.0-ml";
 module namespace plugin = "http://marklogic.com/data-hub/plugins";
 
 declare namespace es = "http://marklogic.com/entity-services";
+declare namespace gml="http://www.opengis.net/gml";
+declare namespace fme="http://www.safe.com/gml/fme";
 
 declare option xdmp:mapping "false";
 
@@ -20,5 +22,5 @@ declare function plugin:create-headers(
   $content as item()?,
   $options as map:map) as node()*
 {
-  ()
+  element point { $content//gml:Point/gml:pos//text() }
 };
