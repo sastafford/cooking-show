@@ -21,3 +21,9 @@ repositories {
 	jcenter()
 	mavenLocal()
 }
+
+ext {
+	mlAppConfig {
+		configDirs.contentDatabaseFiles.add(new File("user-config/databases/d-content-database.json"))
+	}
+}

@@ -1,0 +1,13 @@
+{
+  "database-name": "data-hub-FINAL",
+  "geospatial-element-index": [
+    {
+      "coordinate-system": "wgs84",
+      "invalid-values": "reject",
+      "localname": "point",
+      "namespace-uri": "",
+      "point-format": "point",
+      "range-value-positions": false
+    }
+  ]
+}
