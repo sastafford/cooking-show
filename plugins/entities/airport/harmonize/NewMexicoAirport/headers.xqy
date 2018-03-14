@@ -3,6 +3,7 @@ xquery version "1.0-ml";
 module namespace plugin = "http://marklogic.com/data-hub/plugins";
 
 declare namespace es = "http://marklogic.com/entity-services";
+declare namespace kml = "http://earth.google.com/kml/2.2";
 
 declare option xdmp:mapping "false";
 
@@ -20,5 +21,5 @@ declare function plugin:create-headers(
   $content as item()?,
   $options as map:map) as node()*
 {
-  ()
+  element point { $content//kml:Point/kml:coordinates/text() }
 };

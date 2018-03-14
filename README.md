@@ -13,4 +13,5 @@
 
 # Run Harmonize Flow
 
-    gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=harmonizeNewMexicoAirport
+    gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=NewMexicoAirport
+
