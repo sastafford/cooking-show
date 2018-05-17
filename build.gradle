@@ -4,26 +4,19 @@ buildscript {
 		jcenter()
 	}
 	dependencies {
-		classpath "com.marklogic:ml-gradle:3.4.0"
+		classpath "com.marklogic:ml-gradle:3.6.3"
 	}
 }
 
 plugins {
-	id "java"
-	id "idea"
-
-  id 'com.marklogic.ml-data-hub' version '2.0.3'
+  id 'com.marklogic.ml-data-hub' version '3.0.0'
 }
 
 apply plugin: "com.marklogic.ml-gradle"
 
-repositories {
-	jcenter()
-	mavenLocal()
+task deploy(dependsOn: "hubInit") {
+
 }
 
-ext {
-	mlAppConfig {
-		configDirs.contentDatabaseFiles.add(new File("user-config/databases/d-content-database.json"))
-	}
-}
+hubInit.dependsOn mlInstallAdmin
+mlInstallAdmin.dependsOn mlInit
