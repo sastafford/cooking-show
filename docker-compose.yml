@@ -30,7 +30,7 @@ services:
         source: $PWD
         target: /home/gradle/project
     working_dir: /home/gradle/project
-    command: "gradle deploy"
+    command: "gradle mlInit mlInstallAdmin mlDeploy -PmlHost=marklogic -PmlUsername=admin -PmlPassword=admin"
 
 volumes:
   marklogic_data:

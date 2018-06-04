@@ -13,10 +13,3 @@ plugins {
 }
 
 apply plugin: "com.marklogic.ml-gradle"
-
-task deploy(dependsOn: "hubInit") {
-
-}
-
-hubInit.dependsOn mlInstallAdmin
-mlInstallAdmin.dependsOn mlInit

@@ -1,0 +1,15 @@
+{
+  "info" : {
+    "title" : "airport",
+    "version" : "0.0.1"
+  },
+  "definitions" : {
+    "airport" : {
+      "required" : [ ],
+      "elementRangeIndex" : [ ],
+      "rangeIndex" : [ ],
+      "wordLexicon" : [ ],
+      "properties" : { }
+    }
+  }
+}
