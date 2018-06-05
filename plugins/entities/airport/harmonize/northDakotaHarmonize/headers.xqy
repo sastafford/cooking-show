@@ -30,6 +30,10 @@ declare function plugin:create-headers(
       attribute compartmentation { "FOUO" },
       $airport//gml:Point/gml:pos//text()
     },
-    element elevation { $airport//fme:ELEV/text() }
+    let $elevation := $airport//fme:ELEV/text()
+    return
+      if (fn:empty($elevation)) then ()
+      else
+        element elevation { $elevation }
   )
 };

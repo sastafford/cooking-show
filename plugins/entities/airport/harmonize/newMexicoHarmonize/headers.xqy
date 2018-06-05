@@ -23,10 +23,14 @@ declare function plugin:create-headers(
   let $airport := map:get($content, "airport")
   return
   (
-  element point {
-    attribute classification { "UNCLASSIFIED" },
-    $airport//kml:Point/kml:coordinates/text()
-  },
-  element elevation { $airport//kml:SimpleData[@name = "ELEVATN"]/text() }
-  )
+    element point {
+      attribute classification { "UNCLASSIFIED" },
+      $airport//kml:Point/kml:coordinates/text()
+    },
+    let $elevation := $airport//kml:SimpleData[@name = "ELEVATN"]/text()
+    return
+      if (fn:empty($elevation)) then ()
+      else
+        element elevation { $elevation }
+    )
 };
