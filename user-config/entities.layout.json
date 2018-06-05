@@ -1,9 +1,16 @@
 {
   "airport" : {
-    "x" : 10,
-    "y" : 115,
+    "x" : 394,
+    "y" : 214,
     "width" : 350,
     "height" : 100,
+    "vertices" : { }
+  },
+  "person" : {
+    "x" : 30,
+    "y" : 145,
+    "width" : 350,
+    "height" : 122,
     "vertices" : { }
   }
 }

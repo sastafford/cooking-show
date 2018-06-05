@@ -9,7 +9,11 @@
       "elementRangeIndex" : [ ],
       "rangeIndex" : [ ],
       "wordLexicon" : [ ],
-      "properties" : { }
+      "properties" : {
+        "elevation" : {
+          "datatype" : "int"
+        }
+      }
     }
   }
 }
