@@ -27,10 +27,10 @@ declare function plugin:create-headers(
       attribute classification { "UNCLASSIFIED" },
       $airport//kml:Point/kml:coordinates/text()
     },
-    let $elevation := $airport//kml:SimpleData[@name = "ELEVATN"]/text()
+    let $elevation := $airport//kml:SimpleData[@kml:name = "ELEVATN"]/text()
     return
       if (fn:empty($elevation)) then ()
       else
-        element elevation { $elevation }
+        element elevation { fn:number($elevation) }
     )
 };
