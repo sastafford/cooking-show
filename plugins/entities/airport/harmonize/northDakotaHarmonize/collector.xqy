@@ -15,6 +15,6 @@ declare function plugin:collect(
   $options as map:map) as xs:string*
 {
   (: by default we return the URIs in the same collection as the Entity name :)
-  cts:uris((), (), cts:collection-query("newMexicoInput"))
+  cts:uris((), (), cts:collection-query("northDakotaInput"))
 };
 
