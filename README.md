@@ -1,6 +1,29 @@
 # MarkLogic Cooking Show
 
-Show customers a quick demonstration of a Data Hub project.
+Show customers a quick demonstration of a Data Hub project.  
+
+## Script 
+
+You will run two ingest flows and then two harmonize flows to ingest airport data from New Mexico and North Dakota.
+
+Open up the Quick Start Data Hub user interface.  Explain the data you are ingesting and then run the input flows. 
+
+Show the data via QConsole.  Highlight the need for a canonical model to represent elevation.  This will make
+queries much more simple.  
+
+Run the harmonize flows for the two data sets.
+
+Highlight the header information that exists now for elevation. 
+
+Run the following queries from POSTMAN.  You will need to change the environment variables of the collection for your 
+environment.   
+
+ + View Moriarty Municpal Airport
+ + Airports within 100 miles of Las Cruces, NM 
+ + Airports within 100 miles of Las Cruces, NM with a Hangar
+ + Airport elevations between 3000 ft and 4000 ft
+  
+## Install
 
 Install the demo.  The install scripts will take a few minutes to complete.  Default password is admin/admin
 
@@ -23,19 +46,3 @@ Run the two input flows
 Run the two hamronization flows
 
 Go into POSTMAN and run the three queries.  
-
-# Create Entities
-
-    gradle -PentityName=airport hubCreateEntity 
-    
-# Create Harmonize Flows
-
-    gradle hubCreateHarmonizeFlow -PentityName=airport -PflowName=NewMexicoAirport -PdataFormat=xml -PpluginFormat=xqy
-    gradle hubCreateHarmonizeFlow -PentityName=airpot -PflowName=NorthDakotaAiport -PdataFormat=xml -PpluginFormat=xqy
-
-# Run Harmonize Flow
-
-    gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=NewMexicoAirport
-
-    gradle hubRunFlow -PentityName=airport -PflowType=harmonize -PflowName=NorthDakotaAirport
-
