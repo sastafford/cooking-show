@@ -1,0 +1,15 @@
+/*
+ * In order to use ml-gradle, it must be applied. This occurs after the two above blocks for overriding properties so
+ * that those blocks can override properties before ml-gradle initializes itself.
+ */
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+  }
+  dependencies {
+    classpath "com.marklogic:ml-gradle:3.9.0"
+  }
+}
+
+apply plugin: "com.marklogic.ml-gradle"
