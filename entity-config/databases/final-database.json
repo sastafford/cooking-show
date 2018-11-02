@@ -1,1 +1,0 @@
-{"path-namespace":[{"prefix":"es", "namespace-uri":"http://marklogic.com/entity-services"}], "range-element-index":[{"collation":"http://marklogic.com/collation/en", "invalid-values":"reject", "localname":"elevation", "namespace-uri":null, "range-value-positions":false, "scalar-type":"int"}]}
