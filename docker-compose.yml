@@ -1,36 +1,42 @@
-version: "3.6"
+version: "3.7"
 
 services:
   marklogic:
-    image: marklogic.azurecr.io/marklogic:latest
+    image: marklogiccommunity/marklogic:latest
     volumes:
       - type: volume
         source: marklogic_data
         target: /data
     ports:
-      - "7997-8020:7997-8020/tcp"
+      - "7997:7997/tcp"
+      - "8000-8002:8000-8002/tcp"
+      - "8003:8003/tcp"
 
-  data-hub:
-    image: marklogic.azurecr.io/marklogic/data-hub:3.0.0
-    ports:
-      - "8080:8080"
+  nifi:
+    image: marklogiccommunity/nifi:latest
+    links: 
+      - marklogic
     volumes:
       - type: bind
-        source: $PWD
-        target: /usr/src/app
-    environment:
-      SERVER_PORT: 8080
+        source: ./nifi/
+        target: /data
+      - type: volume
+        source: nifi_data
+        target: /opt/nifi/nifi-1.7.1
+    ports:
+    - "8080:8080/tcp"
 
   gradle:
     image: gradle:alpine
     depends_on:
-      - marklogic
+      - "marklogic"
     volumes:
       - type: bind
-        source: $PWD
-        target: /home/gradle/project
-    working_dir: /home/gradle/project
-    command: "gradle mlInit mlInstallAdmin mlDeploy -PmlHost=marklogic -PmlUsername=admin -PmlPassword=admin"
+        source: ./marklogic
+        target: /usr/src/app
+    working_dir: /usr/src/app
+    command: "gradle -PmlHost=marklogic mlInit mlInstallAdmin mlDeploy"
 
 volumes:
   marklogic_data:
+  nifi_data:
