@@ -1,0 +1,30 @@
+{
+    "database-name": "cooking-show-content",
+    "geospatial-path-index": [
+        {
+            "coordinate-system": "wgs84",
+            "invalid-values": "reject",
+            "path-expression": "/geometry[type = \"Point\"]/array-node(\"coordinates\")",
+            "point-format": "long-lat-point",
+            "range-value-positions": false
+        }
+    ],
+    "geospatial-region-path-index": [
+        {
+            "coordinate-system": "wgs84",
+            "geohash-precision": 1,
+            "invalid-values": "reject",
+            "path-expression": "/envelope/region",
+            "units": "miles"
+        }
+    ],
+    "range-path-index": [
+        {
+            "collation": "",
+            "invalid-values": "reject",
+            "path-expression": "/properties/modified",
+            "range-value-positions": false,
+            "scalar-type": "dateTime"
+        }
+    ]
+}
