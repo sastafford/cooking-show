@@ -1,17 +1,25 @@
-<export><workspace name="Workspace"><query name="Collections" focus="false" listorder="1" taborder="3" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+<export><workspace name="Workspace 1"><query name="Collections" focus="false" listorder="1" taborder="1" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+  Each document can be stored in 1 to many collections.  The following script will output the collections and the counts for each collection.  
+*/
+
+'use strict';
 
 cts.collections().toArray().map(coll =&gt; {
   const x = {
     collection: coll,
-    frequency: cts.estimate(cts.collectionQuery(coll))
+    count: cts.estimate(cts.collectionQuery(coll))
   }
   return x;  
 })
 
-</query><query name="Delete All Data" focus="false" listorder="2" taborder="1" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+</query><query name="Delete All Data" focus="false" listorder="7" taborder="1" active="false" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
 declareUpdate();
 
-cts.uris().toArray().map(uri =&gt; xdmp.documentDelete(uri));</query><query name="What cemeteries have been modified this year?" focus="false" listorder="3" taborder="4" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+cts.uris().toArray().map(uri =&gt; xdmp.documentDelete(uri));</query><query name="What cemeteries have been modified this year?" focus="false" listorder="3" taborder="3" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+  The cts library is MarkLogic's search library.  http://docs.marklogic.com/guide/search-dev/cts_query
+*/
+
+'use strict';
 
 cts.search(
   cts.andQuery([
@@ -19,7 +27,7 @@ cts.search(
     cts.wordQuery("cemetery"),
     cts.pathRangeQuery("/properties/modified", "&gt;", "2018-01-01T00:00:00.Z")
   ])
-)</query><query name="Harmonize regions" focus="false" listorder="4" taborder="5" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+)</query><query name="Harmonize regions" focus="false" listorder="4" taborder="4" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
   The content referenced by the path expression in a geospatial region index must be a region represented as either WKT or a serialized cts:region. 
   To accomplish this without disturbing the original content we 'harmonize' the document into an envelope document pattern.
 */
@@ -43,18 +51,22 @@ const x = uris.map(uri =&gt; {
   xdmp.documentInsert(newUri, newObject, xdmp.defaultPermissions(), xdmp.documentGetCollections(uri).concat(['harmonized']));
   return newUri;
   }
-);</query><query name="Sample Document" focus="false" listorder="5" taborder="2" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+);</query><query name="Sample Document" focus="false" listorder="2" taborder="2" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
 
-const uri = cts.uris('', ["limit=1"], cts.collectionQuery("PointsOfInterest"));
-const doc = cts.doc(uri);
-const obj = {
-  uri,
-  collections: xdmp.documentGetCollections(uri),
-  metadata: xdmp.documentGetMetadata(uri),
-  doc
-};
-obj;
-</query><query name="Gardens in the Bronx" focus="false" listorder="7" taborder="6" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/* 
+const sampleDoc = collection =&gt; {
+  const uri = cts.uris('', ["sample=1", "score-random", "any"], cts.collectionQuery(collection));
+  const doc = cts.doc(uri);
+  const obj = {
+    uri,
+    collections: xdmp.documentGetCollections(uri),
+    metadata: xdmp.documentGetMetadata(uri),
+    doc
+  };
+  return obj;
+}
+
+sampleDoc("PointsOfInterest")
+</query><query name="Gardens in the Bronx" focus="false" listorder="5" taborder="5" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/* 
   Use a 'shotgun' query approach.  
   Find all the neighborhood central points for the Bronx and create 0.25 mile circles around these points.
   Pass these bronx neighborhood circles into a query looking for garden points of interest.
@@ -87,7 +99,7 @@ const obj =
 
 obj;
 
-</query><query name="Which boroughs does a community intersect?" focus="true" listorder="8" taborder="7" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+</query><query name="Which boroughs does a community intersect?" focus="true" listorder="6" taborder="6" active="true" database="15153492049881943227" server="7486482957388652363" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
   What boroughs does a given community reside?  Remember a community could reside in more than one borough. 
   This snippet selects a random community and uses a region intersection query to determine the answer.  
 */

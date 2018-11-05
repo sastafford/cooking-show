@@ -54,14 +54,25 @@ Gradle is a build tool that is used to initialize MarkLogic.  There are three st
 2) Open up [Apache NiFi](http://localhost:8080/nifi). 
 3) [Import the template](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#Import_Template) 
 
+<!-- comment -->
+
     ./nifi/templates/Ingest_GeoJSON.xml
 
-4) Copy the four geojson data files from ./data to ./nifi/staging
+4) [Instantiate the template](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#instantiating-a-template) that was imported on the previous step.  
+
+5) Open up the configuration of the PutMarkLogic processor.  Open the configuration for the connection, add the password - admin.  Enable the connection.
+
+6) Select all the processors and start up the data flow.  
+
+7) Copy the four geojson data files from ./data to ./nifi/staging
 
 ## Query the Data
 
 1) Open up [Query Console](http://localhost:8000/qconsole).
-2) [Import the workspace](http://docs.marklogic.com/guide/qconsole/walkthru#id_22814) found under ./MarkLogic/Workspace.xml
+2) Select the cooking-show-content database
+3) Select the "Explore" button.  There should be 20196 documents in the database.
+4) [Import the workspace](http://docs.marklogic.com/guide/qconsole/walkthru#id_22814) found under ./MarkLogic/Workspace.xml
+5) Review each of the queries.  
 
 ## How do I uninstall?  
 

@@ -4,5 +4,5 @@ build/
 data/
 .tmp/
 cooking-show.iml
-nifi/archive/*
+nifi/archives/*
 nifi/staging/*
