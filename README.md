@@ -14,9 +14,9 @@ The MarkLogic Cooking Show is a tutorial designed to help learn developers learn
 
 2) Create a MarkLogic Docker Image. See [README](./docker/README.md) under the Docker directory
 
-3) Under the project root directory, change the image for the "marklogic" service to the docker image created in Step #2. 
+3) Edit the docker-compose file under the project root directory.  Change the image for the "marklogic" service to the docker image created in the previous step. 
 
-4) Start the set of containers using docker-compose.  Make sure to wait about a minute for all these containers to initialize.  
+4) Start the set of containers.  Make sure to wait about a minute for all these containers to initialize.  
 
 <!-- comment -->
 
@@ -50,8 +50,10 @@ Gradle is a build tool that is used to initialize MarkLogic.  There are three st
 
 ## Ingest NYC Data
 
-1) The Points of Interest data file is not valid JSON due to an extra carriage return on line 278826.  Recommend running this JSON file through a JSON Lint program.  
+1) The Points of Interest data file is not valid JSON due to an extra carriage return on line 278826.  Recommend running this JSON file through a [JSON Lint](https://jsonlint.com/) program.  
+
 2) Open up [Apache NiFi](http://localhost:8080/nifi). 
+
 3) [Import the template](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#Import_Template) 
 
 <!-- comment -->
@@ -60,19 +62,27 @@ Gradle is a build tool that is used to initialize MarkLogic.  There are three st
 
 4) [Instantiate the template](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#instantiating-a-template) that was imported on the previous step.  
 
-5) Open up the configuration of the PutMarkLogic processor.  Open the configuration for the connection, add the password - admin.  Enable the connection.
+5) Open up the configuration of the PutMarkLogic processor (there should be the WARNING sign on this processor).  
 
-6) Select all the processors and start up the data flow.  
+6) Select the properties tab.  Under the DatabaseClient Service, click on the arrow pointing to the right.  
 
-7) Copy the four geojson data files from ./data to ./nifi/staging
+7) Click on the settings for the first row (the gear icon)
+
+8) Click on the properties tab, set the password to "admin" and hit apply.  
+
+9) Enable the connection by clicking on the lightning bolt icon. 
+
+10) Select all the processors and press the Play button from the Operate panel.  This starts up the data flow.    
+
+11) Copy the four geojson data files from ./data to ./nifi/staging
 
 ## Query the Data
 
 1) Open up [Query Console](http://localhost:8000/qconsole).
-2) Select the cooking-show-content database
+2) Select the cooking-show-content database from the drop down in the top left hand panel.  
 3) Select the "Explore" button.  There should be 20196 documents in the database.
-4) [Import the workspace](http://docs.marklogic.com/guide/qconsole/walkthru#id_22814) found under ./MarkLogic/Workspace.xml
-5) Review each of the queries.  
+4) [Import the workspace](http://docs.marklogic.com/guide/qconsole/walkthru#id_22814) found under ./MarkLogic/Workspace.xml.  The Workspace panel is in the top right panel.  
+5) Review each of the queries starting from left to right.   
 
 ## How do I uninstall?  
 
