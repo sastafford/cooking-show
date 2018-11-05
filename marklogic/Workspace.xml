@@ -1,0 +1,123 @@
+<export><workspace name="Workspace"><query name="Collections" focus="false" listorder="1" taborder="3" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+
+cts.collections().toArray().map(coll =&gt; {
+  const x = {
+    collection: coll,
+    frequency: cts.estimate(cts.collectionQuery(coll))
+  }
+  return x;  
+})
+
+</query><query name="Delete All Data" focus="false" listorder="2" taborder="1" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+declareUpdate();
+
+cts.uris().toArray().map(uri =&gt; xdmp.documentDelete(uri));</query><query name="What cemeteries have been modified this year?" focus="false" listorder="3" taborder="4" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+
+cts.search(
+  cts.andQuery([
+    cts.collectionQuery("PointsOfInterest"),
+    cts.wordQuery("cemetery"),
+    cts.pathRangeQuery("/properties/modified", "&gt;", "2018-01-01T00:00:00.Z")
+  ])
+)</query><query name="Harmonize regions" focus="false" listorder="4" taborder="5" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+  The content referenced by the path expression in a geospatial region index must be a region represented as either WKT or a serialized cts:region. 
+  To accomplish this without disturbing the original content we 'harmonize' the document into an envelope document pattern.
+*/
+
+'use strict';
+declareUpdate();
+
+var geojson = require('/MarkLogic/geospatial/geojson.xqy');
+
+const uris = cts.uris("", [], cts.collectionQuery(['BoroughBoundaries', 'CommunityDistricts'])).toArray();
+const x = uris.map(uri =&gt; {
+  const doc = cts.doc(uri).toObject();
+  const geometry = doc.geometry;
+  const newObject = {
+    envelope: {
+      region: geojson.parseGeojson(geometry),
+      doc,
+    }    
+  };
+  const newUri = `/harmonized${uri}`;
+  xdmp.documentInsert(newUri, newObject, xdmp.defaultPermissions(), xdmp.documentGetCollections(uri).concat(['harmonized']));
+  return newUri;
+  }
+);</query><query name="Sample Document" focus="false" listorder="5" taborder="2" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">'use strict';
+
+const uri = cts.uris('', ["limit=1"], cts.collectionQuery("PointsOfInterest"));
+const doc = cts.doc(uri);
+const obj = {
+  uri,
+  collections: xdmp.documentGetCollections(uri),
+  metadata: xdmp.documentGetMetadata(uri),
+  doc
+};
+obj;
+</query><query name="Gardens in the Bronx" focus="false" listorder="7" taborder="6" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/* 
+  Use a 'shotgun' query approach.  
+  Find all the neighborhood central points for the Bronx and create 0.25 mile circles around these points.
+  Pass these bronx neighborhood circles into a query looking for garden points of interest.
+*/
+
+'use strict';
+var geojson = require('/MarkLogic/geospatial/geojson.xqy');
+
+const neighborhoods = borough =&gt; cts.search(
+  cts.andQuery([
+    cts.collectionQuery("NeighborhoodNamesGIS"),
+    cts.jsonPropertyValueQuery("borough", borough)
+  ])
+);
+
+const bronxCircles = neighborhoods("Bronx").toArray().map(x =&gt; x.toObject())
+  .map(bn =&gt; geojson.circle(0.25, bn.geometry))
+
+const gardensNearBronxNeighborhoods = cts.andQuery([
+    cts.collectionQuery("PointsOfInterest"),
+    cts.pathGeospatialQuery('/geometry[type = "Point"]/array-node("coordinates")', bronxCircles, ["type=long-lat-point"]),
+    cts.wordQuery("garden"),
+  ])
+
+const obj =
+{
+  count: cts.estimate(gardensNearBronxNeighborhoods),
+  gardens: cts.search(gardensNearBronxNeighborhoods).toArray().map(garden =&gt; garden.toObject().properties.name)
+};
+
+obj;
+
+</query><query name="Which boroughs does a community intersect?" focus="true" listorder="8" taborder="7" active="true" database="8121544587792178299" server="15949524028692174732" database-name="cooking-show-content" server-name="cooking-show" mode="javascript">/*
+  What boroughs does a given community reside?  Remember a community could reside in more than one borough. 
+  This snippet selects a random community and uses a region intersection query to determine the answer.  
+*/
+
+const communityQuery = cts.andQuery([cts.collectionQuery('CommunityDistricts'), cts.collectionQuery('harmonized')])
+const randomCommunityUri = cts.uris("", ["sample=1", "score-random", "any"], communityQuery);
+const community = cts.doc(randomCommunityUri).toObject();
+
+const whichBorough = cts.search(
+  cts.andQuery([
+    cts.collectionQuery("BoroughBoundaries"),
+    cts.collectionQuery("harmonized"),
+    cts.geospatialRegionQuery(
+      cts.geospatialRegionPathReference('/envelope/region'),
+      'intersects', 
+      community.envelope.region
+    )
+  ])
+).toArray();
+
+const boroughNames = whichBorough.map(b =&gt; b.toObject().envelope.doc.properties.boro_name);
+
+const obj = {
+  community: {
+    communityUri: randomCommunityUri,
+    communityId: community.envelope.doc.properties,
+  },
+  borough: boroughNames,
+}
+
+obj;
+
+</query></workspace></export>

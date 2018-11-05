@@ -61,8 +61,7 @@ Gradle is a build tool that is used to initialize MarkLogic.  There are three st
 ## Query the Data
 
 1) Open up [Query Console](http://localhost:8000/qconsole).
-2) Import the workspace
-3) 
+2) [Import the workspace](http://docs.marklogic.com/guide/qconsole/walkthru#id_22814) found under ./MarkLogic/Workspace.xml
 
 ## How do I uninstall?  
 
