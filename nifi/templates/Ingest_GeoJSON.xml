@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description></description>
+    <groupId>e201b48b-0166-1000-22cf-d48476f64b14</groupId>
+    <name>Ingest_GeoJSON</name>
+    <snippet>
+        <controllerServices>
+            <id>73d7466a-adf7-3851-0000-000000000000</id>
+            <parentGroupId>5487943a-fcec-310f-0000-000000000000</parentGroupId>
+            <bundle>
+                <artifact>nifi-marklogic-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0-SNAPSHOT</version>
+            </bundle>
+            <comments></comments>
+            <descriptors>
+                <entry>
+                    <key>Host</key>
+                    <value>
+                        <name>Host</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Port</key>
+                    <value>
+                        <name>Port</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Security Context Type</key>
+                    <value>
+                        <name>Security Context Type</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Username</key>
+                    <value>
+                        <name>Username</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Password</key>
+                    <value>
+                        <name>Password</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Database</key>
+                    <value>
+                        <name>Database</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>SSL Context Service</key>
+                    <value>
+                        <identifiesControllerService>org.apache.nifi.ssl.SSLContextService</identifiesControllerService>
+                        <name>SSL Context Service</name>
+                    </value>
+                </entry>
+                <entry>
+                    <key>Client Authentication</key>
+                    <value>
+                        <name>Client Authentication</name>
+                    </value>
+                </entry>
+            </descriptors>
+            <name>MarkLogicClientService -- Localhost/Documents</name>
+            <persistsState>false</persistsState>
+            <properties>
+                <entry>
+                    <key>Host</key>
+                    <value>marklogic</value>
+                </entry>
+                <entry>
+                    <key>Port</key>
+                </entry>
+                <entry>
+                    <key>Security Context Type</key>
+                </entry>
+                <entry>
+                    <key>Username</key>
+                    <value>admin</value>
+                </entry>
+                <entry>
+                    <key>Password</key>
+                </entry>
+                <entry>
+                    <key>Database</key>
+                    <value>cooking-show-content</value>
+                </entry>
+                <entry>
+                    <key>SSL Context Service</key>
+                </entry>
+                <entry>
+                    <key>Client Authentication</key>
+                </entry>
+            </properties>
+            <state>ENABLED</state>
+            <type>org.apache.nifi.marklogic.controller.DefaultMarkLogicDatabaseClientService</type>
+        </controllerServices>
+        <processors>
+            <id>905e9340-cd59-32f7-0000-000000000000</id>
+            <parentGroupId>5487943a-fcec-310f-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-marklogic-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0-SNAPSHOT</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>DatabaseClient Service</key>
+                        <value>
+                            <identifiesControllerService>org.apache.nifi.marklogic.controller.MarkLogicDatabaseClientService</identifiesControllerService>
+                            <name>DatabaseClient Service</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Batch size</key>
+                        <value>
+                            <name>Batch size</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Thread count</key>
+                        <value>
+                            <name>Thread count</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Collections</key>
+                        <value>
+                            <name>Collections</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Format</key>
+                        <value>
+                            <name>Format</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Job ID</key>
+                        <value>
+                            <name>Job ID</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Job Name</key>
+                        <value>
+                            <name>Job Name</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>MIME type</key>
+                        <value>
+                            <name>MIME type</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Permissions</key>
+                        <value>
+                            <name>Permissions</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Server transform</key>
+                        <value>
+                            <name>Server transform</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Temporal collection</key>
+                        <value>
+                            <name>Temporal collection</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>URI attribute name</key>
+                        <value>
+                            <name>URI attribute name</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>URI prefix</key>
+                        <value>
+                            <name>URI prefix</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>URI suffix</key>
+                        <value>
+                            <name>URI suffix</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>DatabaseClient Service</key>
+                        <value>73d7466a-adf7-3851-0000-000000000000</value>
+                    </entry>
+                    <entry>
+                        <key>Batch size</key>
+                        <value>100</value>
+                    </entry>
+                    <entry>
+                        <key>Thread count</key>
+                        <value>3</value>
+                    </entry>
+                    <entry>
+                        <key>Collections</key>
+                        <value>${filename:substringBefore('.geojson'):replace(' ', '')},raw</value>
+                    </entry>
+                    <entry>
+                        <key>Format</key>
+                    </entry>
+                    <entry>
+                        <key>Job ID</key>
+                    </entry>
+                    <entry>
+                        <key>Job Name</key>
+                    </entry>
+                    <entry>
+                        <key>MIME type</key>
+                    </entry>
+                    <entry>
+                        <key>Permissions</key>
+                        <value>rest-reader,read,rest-writer,update</value>
+                    </entry>
+                    <entry>
+                        <key>Server transform</key>
+                    </entry>
+                    <entry>
+                        <key>Temporal collection</key>
+                    </entry>
+                    <entry>
+                        <key>URI attribute name</key>
+                        <value>uuid</value>
+                    </entry>
+                    <entry>
+                        <key>URI prefix</key>
+                        <value>/nyc/</value>
+                    </entry>
+                    <entry>
+                        <key>URI suffix</key>
+                        <value>.json</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>PutMarkLogic</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <state>RUNNING</state>
+            <style/>
+            <type>org.apache.nifi.marklogic.processor.PutMarkLogic</type>
+        </processors>
+    </snippet>
+    <timestamp>11/05/2018 12:37:54 UTC</timestamp>
+</template>

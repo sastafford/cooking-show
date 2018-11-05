@@ -24,7 +24,14 @@ The MarkLogic Cooking Show is a tutorial designed to help learn developers learn
 
 If the docker containers fail to initialize, make sure to allocate more memory and CPU's to the docker daemon.  
 
-## What docker containers are running? 
+5) Copy the following data sets into the data directory.
+
+ * [New York City Borough Boundaries](https://data.cityofnewyork.us/api/geospatial/tqmj-j8zm?method=export&format=GeoJSON)
+ * [New York City Community Districts](https://data.cityofnewyork.us/api/geospatial/yfnk-k7r4?method=export&format=GeoJSON)
+ * [New York City Neighborhood Names](https://data.cityofnewyork.us/api/geospatial/99bc-9p23?method=export&format=GeoJSON)
+ * [New York City Places of Interest](https://data.cityofnewyork.us/api/geospatial/rxuy-2muj?method=export&format=GeoJSON)
+
+ ## What docker containers are running? 
 
 ### MarkLogic
 
@@ -33,13 +40,29 @@ If the docker containers fail to initialize, make sure to allocate more memory a
  
 ### Apache NiFi
 
- * Apache NiFi: http://localhost:8080
+Apache NiFi is used to batch ingest data into MarkLogic.
+
+ * Apache NiFi: http://localhost:8080/nifi
 
 ### Gradle
 
 Gradle is a build tool that is used to initialize MarkLogic.  There are three steps of initialization that are executed.  The first step is to initialize MarkLogic including installing the security database and the admin user.  The final step is to install a database called cooking-show-content and an app server called cooking-show.  
 
 ## Ingest NYC Data
+
+1) The Points of Interest data file is not valid JSON due to an extra carriage return on line 278826.  Recommend running this JSON file through a JSON Lint program.  
+2) Open up [Apache NiFi](http://localhost:8080/nifi). 
+3) [Import the template](https://nifi.apache.org/docs/nifi-docs/html/user-guide.html#Import_Template) 
+
+    ./nifi/templates/Ingest_GeoJSON.xml
+
+4) Copy the four geojson data files from ./data to ./nifi/staging
+
+## Query the Data
+
+1) Open up [Query Console](http://localhost:8000/qconsole).
+2) Import the workspace
+3) 
 
 ## How do I uninstall?  
 
