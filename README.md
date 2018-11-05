@@ -1,48 +1,50 @@
 # MarkLogic Cooking Show
 
-Show customers a quick demonstration of a Data Hub project.  
+The MarkLogic Cooking Show is a tutorial designed to help learn developers learn MarkLogic.  The tutorial starts by ingesting several data sets from the [New York City Open Data Project](https://data.cityofnewyork.us/) via Apache NiFi.  Once data is ingested, several queries will be executed in MarkLogic's Query Console.  Setup for MarkLogic and Apache NiFi are facilitated using Docker.  
 
-## Script 
+## Prerequisites
 
-You will run two ingest flows and then two harmonize flows to ingest airport data from New Mexico and North Dakota.
+ * Docker version 18.06.1-ce
+ * docker-compose version 1.22.0
+ * [Docker Hub account](https://hub.docker.com/)
 
-Open up the Quick Start Data Hub user interface.  Explain the data you are ingesting and then run the input flows. 
+## How do I set up? 
 
-Show the data via QConsole.  Highlight the need for a canonical model to represent elevation.  This will make
-queries much more simple.  
+1) Clone this repository
 
-Run the harmonize flows for the two data sets.
+2) Create a MarkLogic Docker Image. See [README](./docker/README.md) under the Docker directory
 
-Highlight the header information that exists now for elevation. 
+3) Under the project root directory, change the image for the "marklogic" service to the docker image created in Step #2. 
 
-Run the following queries from POSTMAN.  You will need to change the environment variables of the collection for your 
-environment.   
+4) Start the set of containers using docker-compose.  Make sure to wait about a minute for all these containers to initialize.  
 
- + View Moriarty Municpal Airport
- + Airports within 100 miles of Las Cruces, NM 
- + Airports within 100 miles of Las Cruces, NM with a Hangar
- + Airport elevations between 3000 ft and 4000 ft
-  
-## Install
-
-Install the demo.  The install scripts will take a few minutes to complete.  Default password is admin/admin
+<!-- comment -->
 
     docker-compose up -d
-    
-Load the POSTMAN Export.  Update the environment variables for the POSTMAN collection to your local environment.    
 
-    ./postman/MarkLogic Cooking Show.postman_collection.json
-    
-Open the Data Hub Quickstart
-  
-     http://HOST:8080
-     
-Click NEXT twice and enter in default credentials. 
+If the docker containers fail to initialize, make sure to allocate more memory and CPU's to the docker daemon.  
 
-Show the Airport Entity
+## What docker containers are running? 
 
-Run the two input flows
+### MarkLogic
 
-Run the two hamronization flows
+ * MarkLogic Admin Console: http://localhost:8001
+ * Query Console: http://localhost:8000/qconsole
+ 
+### Apache NiFi
 
-Go into POSTMAN and run the three queries.  
+ * Apache NiFi: http://localhost:8080
+
+### Gradle
+
+Gradle is a build tool that is used to initialize MarkLogic.  There are three steps of initialization that are executed.  The first step is to initialize MarkLogic including installing the security database and the admin user.  The final step is to install a database called cooking-show-content and an app server called cooking-show.  
+
+## Ingest NYC Data
+
+## How do I uninstall?  
+
+To remove these docker images execute the following command.
+
+    docker-compose down
+
+The MarkLogic forest information is stored in a docker volume and will persist beyond the lifetime of your MarkLogic docker container. 

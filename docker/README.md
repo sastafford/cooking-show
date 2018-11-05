@@ -1,6 +1,6 @@
-# MarkLogic Docker Image Recipe
+# Create a MarkLogic Docker Image
 
-  1. Add the [MarkLogic Installation package for CentOS/RHEL RPM](https://developer.marklogic.com/products) file alongside your Dockerfile in this directory.  
+  1. Add the [MarkLogic Installation package for CentOS/RHEL RPM](https://developer.marklogic.com/products) file alongside the Dockerfile in this directory.  
   2. From the directory where your Dockerfile and RPM live, type the following command.
 
 This MarkLogic image will put all of its forest and log data under the /data directory.  This will be useful when attaching docker volumes to persist storage locally.  
