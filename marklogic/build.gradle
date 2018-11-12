@@ -13,3 +13,14 @@ buildscript {
 }
 
 apply plugin: "com.marklogic.ml-gradle"
+
+repositories {
+  // Needed for smart-mastering-core dependency until it's available via jcenter()
+  maven {
+    url {"https://dl.bintray.com/marklogic-community/Maven/"}
+  }
+}
+
+dependencies {
+  mlRestApi "com.marklogic.community:smart-mastering-core:1.1.1"
+}
