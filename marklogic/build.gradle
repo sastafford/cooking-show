@@ -8,7 +8,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath "com.marklogic:ml-gradle:3.9.0"
+    classpath "com.marklogic:ml-gradle:3.10.0"
   }
 }
 
@@ -22,5 +22,5 @@ repositories {
 }
 
 dependencies {
-  mlRestApi "com.marklogic.community:smart-mastering-core:1.1.1"
+  mlRestApi "com.marklogic.community:smart-mastering-core:1.2.0"
 }
